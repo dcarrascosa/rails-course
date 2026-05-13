@@ -234,3 +234,9 @@ Escribe un test de sistema que pruebe el flujo completo: registro → login → 
 - Cobertura de tests > 80% en modelos
 - Request specs para todos los endpoints
 - Al menos un system spec de flujo crítico
+
+---
+
+## Solución
+
+Ver [`ejercicios/solucion/modulo07.rb`](./ejercicios/solucion/modulo07.rb)

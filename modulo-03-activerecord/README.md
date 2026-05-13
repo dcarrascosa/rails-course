@@ -264,3 +264,9 @@ Al final de este módulo, TaskFlow tiene:
 - Modelo `Task` con validaciones completas y scopes
 - Relaciones `User has_many Tasks`
 - Seeds con datos de prueba (`db/seeds.rb`)
+
+---
+
+## Solución
+
+Ver [`ejercicios/solucion/modulo03.rb`](./ejercicios/solucion/modulo03.rb)

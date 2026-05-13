@@ -1,0 +1,20 @@
+<%# Solución Módulo 04 — Ejercicio 3: edición inline con Turbo Frames %>
+<%# app/views/tasks/edit.html.erb %>
+<%# El frame_tag debe coincidir con el del partial _task.html.erb (dom_id(task)). %>
+
+<%= turbo_frame_tag dom_id(@task) do %>
+  <%= form_with model: @task do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title, autofocus: true %>
+
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+
+    <%= f.label :completed do %>
+      <%= f.check_box :completed %> Completada
+    <% end %>
+
+    <%= f.submit "Guardar" %>
+    <%= link_to "Cancelar", task_path(@task) %>
+  <% end %>
+<% end %>
