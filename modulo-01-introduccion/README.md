@@ -12,6 +12,7 @@
 
 En C# el compilador verifica tipos en tiempo de compilación. Ruby resuelve tipos en tiempo de ejecución.
 
+🔵 **C# / ASP.NET**
 ```csharp
 // C#
 string name = "David";
@@ -19,6 +20,7 @@ int age = 40;
 bool active = true;
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # Ruby — no declaras tipos
 name = "David"
@@ -32,6 +34,7 @@ active = true
 
 ## 2. Métodos vs funciones
 
+🔵 **C# / ASP.NET**
 ```csharp
 // C#
 public string Greet(string name)
@@ -40,6 +43,7 @@ public string Greet(string name)
 }
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # Ruby — def/end, return implícito
 def greet(name)
@@ -53,6 +57,7 @@ end
 
 ## 3. Clases y objetos
 
+🔵 **C# / ASP.NET**
 ```csharp
 // C#
 public class User
@@ -72,6 +77,7 @@ public class User
 var user = new User("David", 40);
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # Ruby
 class User
@@ -95,6 +101,7 @@ puts user.introduce
 
 ## 4. Colecciones — Arrays y Hashes
 
+🔵 **C# / ASP.NET**
 ```csharp
 // C# — List<T> y Dictionary<K,V>
 var names = new List<string> { "Ana", "Carlos", "Eva" };
@@ -105,6 +112,7 @@ var config = new Dictionary<string, string>
 };
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # Ruby — Array y Hash, sin tipos
 names = ["Ana", "Carlos", "Eva"]
@@ -121,12 +129,14 @@ puts config[:env]      # => production
 
 En C# usas `Func<T>`, `Action<T>` o expresiones lambda. Ruby tiene **bloques**.
 
+🔵 **C# / ASP.NET**
 ```csharp
 // C# — LINQ con lambda
 var doubled = numbers.Select(n => n * 2).ToList();
 var evens   = numbers.Where(n => n % 2 == 0).ToList();
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # Ruby — bloques con do..end o llaves {}
 numbers = [1, 2, 3, 4, 5]
@@ -142,6 +152,7 @@ total   = numbers.reduce(0) { |sum, n| sum + n } # => 15
 
 En C# usas interfaces para contratos y herencia para reutilización. Ruby usa **módulos** (mixins) para ambos.
 
+🔵 **C# / ASP.NET**
 ```csharp
 // C#
 public interface IGreetable
@@ -155,6 +166,7 @@ public class Admin : User, IGreetable
 }
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # Ruby
 module Greetable
@@ -196,6 +208,7 @@ puts admin.greet  # => Hola, soy Admin
 
 No tienen equivalente directo en C#. Son como strings inmutables e internos, ideales para claves y nombres de métodos.
 
+💎 **Ruby / Rails**
 ```ruby
 :name       # símbolo
 "name"      # string
@@ -211,10 +224,11 @@ user = { name: "David", role: :admin }
 
 ## Ejercicios
 
-### Ejercicio 1 — Clase con lógica de negocio
+### ✅ Ejercicio 1 — Clase con lógica de negocio
 
 Crea una clase `Product` con atributos `name`, `price` y `stock`. Añade un método `available?` que devuelva `true` si el stock es mayor que 0, y un método `discounted_price(percent)` que aplique un descuento.
 
+💎 **Ruby / Rails**
 ```ruby
 # Tu solución aquí
 class Product
@@ -226,12 +240,13 @@ puts p.available?               # => true
 puts p.discounted_price(10)     # => 80.991
 ```
 
-### Ejercicio 2 — Transformaciones de colecciones
+### ✅ Ejercicio 2 — Transformaciones de colecciones
 
 Dado este array de hashes, usa `map`, `select` y `reduce` para:
 1. Obtener solo los nombres de productos con stock > 0
 2. Calcular el valor total del inventario (precio × stock)
 
+💎 **Ruby / Rails**
 ```ruby
 products = [
   { name: "Teclado", price: 89.99, stock: 5 },
@@ -240,7 +255,7 @@ products = [
 ]
 ```
 
-### Ejercicio 3 — Módulo mixin
+### ✅ Ejercicio 3 — Módulo mixin
 
 Crea un módulo `Auditable` con métodos `created_info` y `updated_info` que devuelvan strings con timestamps. Inclúyelo en una clase `Task`.
 

@@ -23,6 +23,7 @@ rails db:rollback  # equivale a dotnet ef migrations remove
 
 Fichero de migración generado:
 
+💎 **Ruby / Rails**
 ```ruby
 # db/migrate/20240501_create_tasks.rb
 class CreateTasks < ActiveRecord::Migration[8.0]
@@ -45,6 +46,7 @@ end
 
 ## 2. Modelo y validaciones
 
+🔵 **C# / ASP.NET**
 ```csharp
 // EF Core + FluentValidation
 public class Task
@@ -65,6 +67,7 @@ public class TaskValidator : AbstractValidator<Task>
 }
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # ActiveRecord — app/models/task.rb
 class Task < ApplicationRecord
@@ -84,6 +87,7 @@ end
 
 ## 3. Queries — LINQ vs ActiveRecord
 
+🔵 **C# / ASP.NET**
 ```csharp
 // C# LINQ
 var tasks = db.Tasks
@@ -97,6 +101,7 @@ var task = db.Tasks.FirstOrDefault(t => t.Id == id);
 var count = db.Tasks.Count(t => t.UserId == userId);
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # ActiveRecord — lazy evaluation, igual que IQueryable
 tasks = Task
@@ -112,6 +117,7 @@ count = Task.where(user: user).count
 
 ### Queries con joins
 
+🔵 **C# / ASP.NET**
 ```csharp
 // EF Core
 var tasks = db.Tasks
@@ -120,6 +126,7 @@ var tasks = db.Tasks
     .ToList();
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # ActiveRecord
 tasks = Task
@@ -134,6 +141,7 @@ tasks = Task
 
 ## 4. Relaciones
 
+🔵 **C# / ASP.NET**
 ```csharp
 // EF Core — Data Annotations
 public class User
@@ -149,6 +157,7 @@ public class Task
 }
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # ActiveRecord — app/models/user.rb
 class User < ApplicationRecord
@@ -196,6 +205,7 @@ user.tasks.create(title: "Nueva tarea")  # INSERT automático con user_id
 
 Equivalente a los eventos de EF Core (`SavingChanges`, etc.):
 
+💎 **Ruby / Rails**
 ```ruby
 class Task < ApplicationRecord
   before_save  :normalize_title
@@ -217,21 +227,22 @@ end
 
 ## Ejercicios
 
-### Ejercicio 1 — Migración y modelo
+### ✅ Ejercicio 1 — Migración y modelo
 
 Crea el modelo `Project` con campos `name`, `description`, `deadline` (fecha) y relación con `User`. Añade validaciones de presencia y que `deadline` sea futura.
 
-### Ejercicio 2 — Scopes y queries
+### ✅ Ejercicio 2 — Scopes y queries
 
 En el modelo `Task`, añade:
 - Un scope `overdue` que devuelva tareas con `deadline` pasada y no completadas
 - Un scope `by_user(user)` que filtre por usuario
 - Un método de clase `summary_for(user)` que devuelva un hash con totales
 
-### Ejercicio 3 — N+1 y eager loading
+### ✅ Ejercicio 3 — N+1 y eager loading
 
 Identifica el problema N+1 en este código y corrígelo:
 
+💎 **Ruby / Rails**
 ```ruby
 # tasks_controller.rb
 def index

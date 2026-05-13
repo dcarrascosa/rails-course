@@ -34,6 +34,7 @@ Estructura equivalente:
 
 ## 2. Rutas — Routes vs Attribute Routing
 
+🔵 **C# / ASP.NET**
 ```csharp
 // ASP.NET — atributos en el controlador
 [Route("tasks")]
@@ -45,6 +46,7 @@ public class TasksController : Controller
 }
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # Rails — config/routes.rb
 Rails.application.routes.draw do
@@ -70,6 +72,7 @@ rails routes
 
 ## 3. Controlador
 
+🔵 **C# / ASP.NET**
 ```csharp
 // ASP.NET
 public class TasksController : Controller
@@ -85,6 +88,7 @@ public class TasksController : Controller
 }
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # Rails — app/controllers/tasks_controller.rb
 class TasksController < ApplicationController
@@ -128,6 +132,7 @@ end
 }
 ```
 
+💎 **ERB**
 ```erb
 <%# Rails ERB: app/views/tasks/index.html.erb %>
 <% @tasks.each do |task| %>
@@ -148,6 +153,7 @@ end
 
 En ASP.NET defines DTOs para el binding. Rails usa **strong parameters** para evitar mass assignment:
 
+💎 **Ruby / Rails**
 ```ruby
 def task_params
   params.require(:task).permit(:title, :description, :completed)
@@ -180,7 +186,7 @@ Solo los campos declarados en `permit` se asignan al modelo.
 
 ## Ejercicios
 
-### Ejercicio 1 — CRUD completo con scaffold
+### ✅ Ejercicio 1 — CRUD completo con scaffold
 
 ```bash
 rails generate scaffold Task title:string description:text completed:boolean
@@ -190,13 +196,14 @@ rails server
 
 Explora las rutas generadas con `rails routes` e identifica el equivalente en ASP.NET de cada acción.
 
-### Ejercicio 2 — Controlador sin scaffold
+### ✅ Ejercicio 2 — Controlador sin scaffold
 
 Crea manualmente un controlador `ProjectsController` con acciones `index` y `show`. Crea las vistas ERB correspondientes.
 
-### Ejercicio 3 — Rutas anidadas
+### ✅ Ejercicio 3 — Rutas anidadas
 
 Modifica `routes.rb` para que las tareas estén anidadas bajo proyectos:
+💎 **Ruby / Rails**
 ```ruby
 resources :projects do
   resources :tasks

@@ -22,6 +22,7 @@
 </html>
 ```
 
+💎 **ERB**
 ```erb
 <%# Rails: app/views/layouts/application.html.erb %>
 <!DOCTYPE html>
@@ -38,11 +39,13 @@
 
 ## 2. Partials — equivalente a Partial Views
 
+🔵 **C# / ASP.NET**
 ```csharp
 // ASP.NET Razor
 @await Html.PartialAsync("_TaskCard", task)
 ```
 
+💎 **ERB**
 ```erb
 <%# Rails — el fichero se llama _task_card.html.erb (con guión bajo) %>
 <%= render "task_card", task: task %>
@@ -55,6 +58,7 @@
 
 ## 3. Helpers — equivalente a Tag Helpers
 
+💎 **ERB**
 ```erb
 <%# Links %>
 <%= link_to "Ver tarea", task_path(@task) %>
@@ -83,6 +87,7 @@ Turbo Drive intercepta clicks en links y submissions de formularios y actualiza 
 
 ### Turbo Frames — equivalente a componentes Blazor
 
+💎 **ERB**
 ```erb
 <%# Enmarca una sección actualizable %>
 <%= turbo_frame_tag "task_#{@task.id}" do %>
@@ -91,6 +96,7 @@ Turbo Drive intercepta clicks en links y submissions de formularios y actualiza 
 <% end %>
 ```
 
+💎 **ERB**
 ```erb
 <%# En edit.html.erb — mismo frame_tag para que Rails sepa dónde inyectar %>
 <%= turbo_frame_tag "task_#{@task.id}" do %>
@@ -100,6 +106,7 @@ Turbo Drive intercepta clicks en links y submissions de formularios y actualiza 
 
 ### Turbo Streams — actualizaciones granulares desde el servidor
 
+💎 **Ruby / Rails**
 ```ruby
 # tasks_controller.rb
 def create
@@ -113,6 +120,7 @@ def create
 end
 ```
 
+💎 **ERB**
 ```erb
 <%# app/views/tasks/create.turbo_stream.erb %>
 <%= turbo_stream.prepend "tasks", @task %>  <%# añade al principio de #tasks %>
@@ -125,6 +133,7 @@ end
 
 Para lógica compleja en vistas, Rails tiene **ViewComponents** (gema) como alternativa a los Razor Components:
 
+💎 **Ruby / Rails**
 ```ruby
 # app/components/task_status_component.rb
 class TaskStatusComponent < ViewComponent::Base
@@ -134,6 +143,7 @@ class TaskStatusComponent < ViewComponent::Base
 end
 ```
 
+💎 **ERB**
 ```erb
 <%# app/components/task_status_component.html.erb %>
 <span class="badge <%= @task.completed? ? 'badge-success' : 'badge-warning' %>">
@@ -141,6 +151,7 @@ end
 </span>
 ```
 
+💎 **ERB**
 ```erb
 <%# Uso en cualquier vista %>
 <%= render(TaskStatusComponent.new(task: task)) %>
@@ -164,15 +175,15 @@ end
 
 ## Ejercicios
 
-### Ejercicio 1 — Layout con navbar
+### ✅ Ejercicio 1 — Layout con navbar
 
 Crea un layout con navbar responsive que muestre el usuario logueado y tenga links a las secciones principales.
 
-### Ejercicio 2 — Partial con colección
+### ✅ Ejercicio 2 — Partial con colección
 
 Extrae `_task.html.erb` como partial y úsalo con `render @tasks`. Asegúrate de que muestra el estado, título y un link a la tarea.
 
-### Ejercicio 3 — Turbo Frame en edición inline
+### ✅ Ejercicio 3 — Turbo Frame en edición inline
 
 Implementa edición inline de una tarea usando Turbo Frames: al pulsar "Editar", el card se convierte en formulario sin cambiar de página.
 

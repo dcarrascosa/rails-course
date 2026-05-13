@@ -34,6 +34,7 @@ Devise genera automáticamente:
 
 ## 2. Rutas generadas
 
+💎 **Ruby / Rails**
 ```ruby
 # config/routes.rb
 devise_for :users
@@ -49,6 +50,7 @@ devise_for :users
 
 ## 3. Proteger controladores
 
+🔵 **C# / ASP.NET**
 ```csharp
 // ASP.NET — atributo [Authorize]
 [Authorize]
@@ -58,6 +60,7 @@ public class TasksController : Controller { ... }
 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # Rails con Devise
 class TasksController < ApplicationController
@@ -73,6 +76,7 @@ end
 
 ## 4. Personalizar el modelo User
 
+💎 **Ruby / Rails**
 ```ruby
 # db/migrate/add_fields_to_users.rb
 class AddFieldsToUsers < ActiveRecord::Migration[8.0]
@@ -104,6 +108,7 @@ end
 
 Equivalente a los **Authorization Policies** de ASP.NET:
 
+🔵 **C# / ASP.NET**
 ```csharp
 // ASP.NET Policy
 public class TaskAuthorizationHandler
@@ -118,6 +123,7 @@ public class TaskAuthorizationHandler
 }
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # gem "pundit"
 # app/policies/task_policy.rb
@@ -175,15 +181,15 @@ end
 
 ## Ejercicios
 
-### Ejercicio 1 — Instalar Devise
+### ✅ Ejercicio 1 — Instalar Devise
 
 Instala Devise en TaskFlow, genera el modelo User y protege `TasksController` con `before_action :authenticate_user!`. Verifica que el login/logout funciona.
 
-### Ejercicio 2 — Campos personalizados
+### ✅ Ejercicio 2 — Campos personalizados
 
 Añade el campo `name` al registro. Asegúrate de que se guarda correctamente (necesitarás permitir el parámetro en `ApplicationController`).
 
-### Ejercicio 3 — Política con Pundit
+### ✅ Ejercicio 3 — Política con Pundit
 
 Instala Pundit y crea `TaskPolicy` que solo permita editar/eliminar tareas propias. Prueba que un usuario no puede modificar tareas de otro.
 

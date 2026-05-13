@@ -12,6 +12,7 @@
 
 En .NET usas Hangfire para jobs en background o Azure Functions para tareas programadas:
 
+🔵 **C# / ASP.NET**
 ```csharp
 // Hangfire — encolar job
 BackgroundJob.Enqueue<EmailService>(s => s.SendWelcomeEmail(userId));
@@ -38,6 +39,7 @@ config.active_job.queue_adapter = :solid_queue
 gem "sidekiq"
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # config/application.rb
 config.active_job.queue_adapter = :sidekiq
@@ -51,6 +53,7 @@ config.active_job.queue_adapter = :sidekiq
 rails generate job WelcomeEmail
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # app/jobs/welcome_email_job.rb
 class WelcomeEmailJob < ApplicationJob
@@ -79,6 +82,7 @@ Equivalente a los servicios de email de .NET con plantillas Razor:
 rails generate mailer UserMailer
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # app/mailers/user_mailer.rb
 class UserMailer < ApplicationMailer
@@ -97,6 +101,7 @@ class UserMailer < ApplicationMailer
 end
 ```
 
+💎 **ERB**
 ```erb
 <%# app/views/user_mailer/welcome.html.erb %>
 <h1>Hola <%= @user.name %>,</h1>
@@ -104,6 +109,7 @@ end
 <%= link_to "Acceder", root_url %>
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # Enviar en background (el patrón recomendado)
 UserMailer.welcome(@user).deliver_later  # encola un job automáticamente
@@ -113,6 +119,7 @@ UserMailer.welcome(@user).deliver_later  # encola un job automáticamente
 
 ## 4. Jobs recurrentes con Sidekiq Cron
 
+💎 **Ruby / Rails**
 ```ruby
 # gem "sidekiq-cron"
 # config/initializers/sidekiq.rb
@@ -123,6 +130,7 @@ Sidekiq::Cron::Job.create(
 )
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # app/jobs/daily_reminder_job.rb
 class DailyReminderJob < ApplicationJob
@@ -139,6 +147,7 @@ end
 
 ## 5. Dashboard de Sidekiq
 
+💎 **Ruby / Rails**
 ```ruby
 # config/routes.rb
 require "sidekiq/web"
@@ -170,15 +179,15 @@ Equivalente al dashboard de Hangfire en ASP.NET.
 
 ## Ejercicios
 
-### Ejercicio 1 — Email de bienvenida
+### ✅ Ejercicio 1 — Email de bienvenida
 
 Configura Action Mailer en desarrollo con la gema `letter_opener`. Envía un email de bienvenida al registrarse con Devise (usa el callback `after_create_commit`).
 
-### Ejercicio 2 — Notificación de tarea asignada
+### ✅ Ejercicio 2 — Notificación de tarea asignada
 
 Cuando se crea una tarea, encola un job que envía un email de notificación al usuario propietario con `perform_later`.
 
-### Ejercicio 3 — Job recurrente
+### ✅ Ejercicio 3 — Job recurrente
 
 Configura un job que se ejecute cada mañana y envíe un resumen de tareas pendientes. Usa Sidekiq Cron o la gema `whenever` para la programación.
 
