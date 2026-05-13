@@ -20,6 +20,7 @@ SECRET_KEY_BASE=generated_with_rails_secret
 DEVISE_SECRET_KEY=another_secret
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # config/database.yml
 production:
@@ -198,15 +199,15 @@ jobs:
 
 ## Ejercicios
 
-### Ejercicio 1 — Preparar para producción
+### ✅ Ejercicio 1 — Preparar para producción
 
 Configura `config/environments/production.rb` con las opciones de logging, caché y assets correctas. Genera una `SECRET_KEY_BASE` con `rails secret`.
 
-### Ejercicio 2 — Deploy en Railway
+### ✅ Ejercicio 2 — Deploy en Railway
 
 Haz un deploy real de TaskFlow en Railway con base de datos PostgreSQL. Configura las variables de entorno desde el dashboard.
 
-### Ejercicio 3 — Pipeline CI/CD
+### ✅ Ejercicio 3 — Pipeline CI/CD
 
 Configura el workflow de GitHub Actions para que ejecute los tests en cada push a `main` y haga deploy automático a Railway si pasan.
 

@@ -36,6 +36,7 @@ spec/
 
 ## 2. Tests de modelo
 
+🔵 **C# / ASP.NET**
 ```csharp
 // xUnit
 public class TaskTests
@@ -50,6 +51,7 @@ public class TaskTests
 }
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # RSpec — spec/models/task_spec.rb
 RSpec.describe Task, type: :model do
@@ -81,6 +83,7 @@ end
 
 ## 3. FactoryBot — equivalente a builders / ObjectMother
 
+🔵 **C# / ASP.NET**
 ```csharp
 // C# — builder pattern manual
 var task = new TaskBuilder()
@@ -89,6 +92,7 @@ var task = new TaskBuilder()
     .Build();
 ```
 
+💎 **Ruby / Rails**
 ```ruby
 # spec/factories/tasks.rb
 FactoryBot.define do
@@ -122,6 +126,7 @@ create_list(:task, 5, user:)  # lista de 5 tareas
 
 Equivalente a `WebApplicationFactory` + `HttpClient` en ASP.NET:
 
+💎 **Ruby / Rails**
 ```ruby
 # spec/requests/tasks_spec.rb
 RSpec.describe "Tasks", type: :request do
@@ -158,6 +163,7 @@ end
 
 Equivalente a Playwright o Selenium en .NET:
 
+💎 **Ruby / Rails**
 ```ruby
 # spec/system/tasks_spec.rb
 RSpec.describe "Gestión de tareas", type: :system do
@@ -209,15 +215,15 @@ end
 
 ## Ejercicios
 
-### Ejercicio 1 — Factories y model specs
+### ✅ Ejercicio 1 — Factories y model specs
 
 Crea factories para `User` y `Task`. Escribe specs para todas las validaciones y scopes del modelo `Task`.
 
-### Ejercicio 2 — Request specs
+### ✅ Ejercicio 2 — Request specs
 
 Escribe request specs para `TasksController`: GET index, GET show, POST create (válido e inválido), PATCH update y DELETE destroy.
 
-### Ejercicio 3 — System spec
+### ✅ Ejercicio 3 — System spec
 
 Escribe un test de sistema que pruebe el flujo completo: registro → login → crear tarea → marcar completada → logout.
 
