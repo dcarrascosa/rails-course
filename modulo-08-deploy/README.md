@@ -221,3 +221,11 @@ Al completar el curso, TaskFlow es una app en producción con:
 - Notificaciones por email con Sidekiq
 - Tests con > 80% de cobertura
 - Deploy automático con GitHub Actions
+
+---
+
+## Solución
+
+Ver:
+- [`ejercicios/solucion/production.rb`](./ejercicios/solucion/production.rb)
+- [`ejercicios/solucion/ci.yml`](./ejercicios/solucion/ci.yml)

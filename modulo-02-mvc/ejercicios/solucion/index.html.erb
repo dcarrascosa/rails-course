@@ -1,0 +1,14 @@
+<%# Solución Módulo 02 — Ejercicio 2 (vista) %>
+<%# app/views/projects/index.html.erb %>
+
+<h1>Proyectos</h1>
+
+<% if @projects.any? %>
+  <ul>
+    <% @projects.each do |project| %>
+      <li><%= link_to project.name, project_path(project) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No hay proyectos todavía.</p>
+<% end %>

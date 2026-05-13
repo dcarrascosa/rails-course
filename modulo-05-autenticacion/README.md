@@ -200,3 +200,9 @@ Instala Pundit y crea `TaskPolicy` que solo permita editar/eliminar tareas propi
 - Login, registro y logout funcionando
 - Tareas asociadas al usuario logueado
 - Autorización: solo el propietario puede editar/eliminar
+
+---
+
+## Solución
+
+Ver [`ejercicios/solucion/modulo05.rb`](./ejercicios/solucion/modulo05.rb)

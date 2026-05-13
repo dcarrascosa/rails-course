@@ -1,0 +1,37 @@
+<%# Solución Módulo 04 — Ejercicio 1: layout con navbar %>
+<%# app/views/layouts/application.html.erb %>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title><%= content_for?(:title) ? yield(:title) : "TaskFlow" %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_importmap_tags %>
+</head>
+<body>
+  <nav class="navbar">
+    <%= link_to "TaskFlow", root_path, class: "navbar-brand" %>
+
+    <% if user_signed_in? %>
+      <span class="navbar-user">Hola, <%= current_user.name || current_user.email %></span>
+      <%= link_to "Tareas", tasks_path %>
+      <%= link_to "Proyectos", projects_path %>
+      <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Entrar", new_user_session_path %>
+      <%= link_to "Registro", new_user_registration_path %>
+    <% end %>
+  </nav>
+
+  <% flash.each do |type, message| %>
+    <div class="flash flash-<%= type %>"><%= message %></div>
+  <% end %>
+
+  <main>
+    <%= yield %>
+  </main>
+</body>
+</html>

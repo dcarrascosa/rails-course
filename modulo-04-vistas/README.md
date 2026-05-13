@@ -195,3 +195,12 @@ Implementa edición inline de una tarea usando Turbo Frames: al pulsar "Editar",
 - Partial `_task.html.erb` reutilizable
 - Edición inline con Turbo Frames
 - Formulario con validaciones client-side
+
+---
+
+## Solución
+
+Ver:
+- [`ejercicios/solucion/application.html.erb`](./ejercicios/solucion/application.html.erb)
+- [`ejercicios/solucion/_task.html.erb`](./ejercicios/solucion/_task.html.erb)
+- [`ejercicios/solucion/edit.html.erb`](./ejercicios/solucion/edit.html.erb)

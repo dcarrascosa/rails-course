@@ -219,3 +219,12 @@ Al final de este módulo, TaskFlow tiene:
 - Scaffold de `Task` con CRUD funcionando
 - Layout base con navbar
 - Rutas RESTful definidas
+
+---
+
+## Solución
+
+Ver:
+- [`ejercicios/solucion/routes.rb`](./ejercicios/solucion/routes.rb)
+- [`ejercicios/solucion/projects_controller.rb`](./ejercicios/solucion/projects_controller.rb)
+- [`ejercicios/solucion/index.html.erb`](./ejercicios/solucion/index.html.erb)

@@ -198,3 +198,9 @@ Configura un job que se ejecute cada mañana y envíe un resumen de tareas pendi
 - Email de bienvenida al registrarse
 - Notificación al crear/asignar tarea
 - Job recurrente de resumen diario
+
+---
+
+## Solución
+
+Ver [`ejercicios/solucion/modulo06.rb`](./ejercicios/solucion/modulo06.rb)
