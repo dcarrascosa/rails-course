@@ -143,6 +143,36 @@ end
 
 ---
 
+## 6. Trampas comunes
+
+> ⚠️ **Rails 8 trae autenticación built-in** — desde Rails 8 puedes generar autenticación básica con `bin/rails generate authentication`. Es minimal y sin features extra (sin password reset por email, sin OAuth). Devise sigue siendo el estándar de facto para cualquier cosa medianamente real, pero **no es obligatorio**.
+
+> ⚠️ **`devise_for :users` debe ir antes que `resources :tasks`** en `routes.rb` si hay rutas colisionantes. Y no toques las rutas que genera Devise sin saber qué haces; los formularios y mailers asumen los nombres por defecto.
+
+> ⚠️ **`current_user` puede ser `nil` aunque `before_action :authenticate_user!` esté declarado** — si lo usas en un controlador que también tiene acciones públicas, o en un helper de vista compartida. Comprueba con `user_signed_in?` antes.
+
+> ⚠️ **Devise no aplica strong params al registro automáticamente** — si añades un campo (`name`, `role`) tienes que declararlo en `ApplicationController`:
+> ```ruby
+> before_action :configure_permitted_parameters, if: :devise_controller?
+>
+> protected
+>
+> def configure_permitted_parameters
+>   devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+> end
+> ```
+
+> ⚠️ **Pundit lanza `Pundit::NotAuthorizedError`, no un 403 directo** — tienes que rescatarlo en `ApplicationController`:
+> ```ruby
+> rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+>
+> def user_not_authorized
+>   redirect_to root_path, alert: "No autorizado."
+> end
+> ```
+
+---
+
 ## Ejercicios
 
 ### Ejercicio 1 — Instalar Devise

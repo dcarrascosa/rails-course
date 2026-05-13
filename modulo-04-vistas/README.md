@@ -148,6 +148,20 @@ end
 
 ---
 
+## 6. Trampas comunes
+
+> ⚠️ **Los partials se llaman con guión bajo en disco pero sin guión bajo en el `render`** — `_task_card.html.erb` se invoca con `render "task_card"`. Si pones el guión bajo en `render`, falla.
+
+> ⚠️ **`render @tasks` solo funciona si existe `_task.html.erb`** — Rails infiere el nombre del partial a partir del nombre de clase del modelo (`Task` → `_task`). Si tu colección es heterogénea, falla.
+
+> ⚠️ **Turbo cachea la página al hacer click adelante/atrás** — si tu UI tiene estado JS (un timer, un input vivo), reinicialízalo en `turbo:load` o `turbo:render`, no en `DOMContentLoaded`.
+
+> ⚠️ **Los formularios con Turbo esperan respuesta `:unprocessable_entity` (422)** para re-renderizar errores** — si devuelves `200` con `render :new`, Turbo lo descarta porque cree que fue éxito. Siempre `render :new, status: :unprocessable_entity`.
+
+> ⚠️ **`<%= %>` escapa HTML automáticamente** — equivalente a `@expression` de Razor. Para renderizar HTML crudo (peligroso), usa `<%= raw(...) %>` o `<%= ... .html_safe %>`. **Nunca con input de usuario sin sanitizar**.
+
+---
+
 ## Ejercicios
 
 ### Ejercicio 1 — Layout con navbar

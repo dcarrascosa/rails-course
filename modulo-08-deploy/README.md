@@ -180,6 +180,22 @@ jobs:
 
 ---
 
+## 6. Trampas comunes
+
+> ⚠️ **`RAILS_MASTER_KEY` y `SECRET_KEY_BASE` no son lo mismo** — `RAILS_MASTER_KEY` desencripta `config/credentials.yml.enc`. `SECRET_KEY_BASE` firma cookies y sesiones. Si rotas `SECRET_KEY_BASE`, todos los usuarios pierden sesión. Cuídalas como contraseñas root.
+
+> ⚠️ **`rails assets:precompile` falla silenciosamente si Node/JS engine no está disponible** — en imágenes Docker minimalistas, falta `nodejs` y `yarn`. Usa la imagen oficial de Rails 8 o instálalos en el Dockerfile.
+
+> ⚠️ **`config.force_ssl = true` en producción puede dejarte fuera** — si tu proxy (Nginx, Cloudflare) ya termina TLS y no manda los headers correctos, Rails rebota a `https://` y entra en bucle infinito. Verifica `config.assume_ssl = true` + headers `X-Forwarded-Proto`.
+
+> ⚠️ **`heroku run rails db:migrate` está deprecated** — Heroku ya no es gratis. Si vienes de tutoriales antiguos, busca el equivalente del PaaS que uses (Railway tiene `railway run`, Render hace migraciones como build step, Fly.io tiene `fly ssh console`).
+
+> ⚠️ **CSRF y APIs cross-origin** — si expones una API consumida desde otro origen (móvil, SPA externa), `protect_from_forgery` puede bloquear requests legítimas. La solución correcta: usa `ActionController::API` para esos controladores, no desactives CSRF globalmente.
+
+> ⚠️ **Variables de entorno con valores numéricos llegan como string** — `ENV["MAX_RETRIES"]` es `"3"`, no `3`. Convierte: `ENV.fetch("MAX_RETRIES", "3").to_i`. Y usa `fetch` en vez de `[]` para fallar rápido si falta una env crítica.
+
+---
+
 ## Ejercicios
 
 ### Ejercicio 1 — Preparar para producción
