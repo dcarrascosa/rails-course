@@ -5,8 +5,13 @@
 Rails.application.configure do
   # --- Logging --------------------------------------------------------------
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info").to_sym
-  config.logger    = ActiveSupport::Logger.new(STDOUT)
-  config.log_tags  = [:request_id]
+
+  # Si reemplazas el logger por uno "plano", config.log_tags queda sin efecto:
+  # el logger por defecto de Rails es TaggedLogging y los tags necesitan ese
+  # wrapper. Por eso envolvemos el STDOUT logger explícitamente.
+  base_logger     = ActiveSupport::Logger.new(STDOUT)
+  config.logger   = ActiveSupport::TaggedLogging.new(base_logger)
+  config.log_tags = [:request_id]
 
   # --- Cache ----------------------------------------------------------------
   # En Rails 8, Solid Cache es el default; usa la propia DB.
