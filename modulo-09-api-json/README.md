@@ -254,6 +254,46 @@ end
 
 > ⚠️ **No metas JWT en localStorage si la API es de uso público desde navegadores** — vulnerable a XSS. Usa cookies `HttpOnly` + CSRF, o autenticación por token con scope limitado.
 
+### Diagrama de secuencia del flujo JWT
+
+```mermaid
+sequenceDiagram
+    actor Cliente
+    participant AuthController as Api::V1::AuthController
+    participant Usuario as User (modelo)
+    participant JwtService
+    participant TasksController as Api::V1::TasksController
+    participant Recurso as TaskResource
+
+    %% --- Login ---
+    Cliente->>AuthController: POST /api/v1/auth/login (email, password)
+    AuthController->>Usuario: find_by(email:)
+    AuthController->>Usuario: authenticate(password)
+    alt credenciales válidas
+        AuthController->>JwtService: encode(user_id: user.id)
+        JwtService-->>AuthController: token
+        AuthController-->>Cliente: 200 { token }
+    else inválidas
+        AuthController-->>Cliente: 401 Unauthorized
+    end
+
+    %% --- Request autenticada ---
+    Cliente->>TasksController: GET /api/v1/tasks (Authorization: Bearer)
+    Note over TasksController: before_action :authenticate_with_jwt!
+    TasksController->>JwtService: decode(token)
+    JwtService-->>TasksController: payload (user_id)
+    TasksController->>Usuario: find_by(id: payload["user_id"])
+    alt usuario válido
+        TasksController->>Recurso: serialize(tasks)
+        Recurso-->>TasksController: JSON
+        TasksController-->>Cliente: 200 [JSON]
+    else token inválido o user no existe
+        TasksController-->>Cliente: 401 Unauthorized
+    end
+```
+
+> `authenticate(password)` no genera otra query — `has_secure_password` compara el hash bcrypt en memoria sobre el usuario ya cargado en `find_by`.
+
 ---
 
 ## 5. CORS — abrir la API a clientes externos
