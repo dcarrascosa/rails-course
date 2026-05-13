@@ -54,6 +54,21 @@ class ApplicationPolicy
     @user = user
     @record = record
   end
+
+  # El generator de Pundit crea esta Scope anidada; la replicamos aquí para
+  # que el ejemplo sea copy-paste sin NameError.
+  class Scope
+    attr_reader :user, :scope
+
+    def initialize(user, scope)
+      @user = user
+      @scope = scope
+    end
+
+    def resolve
+      raise NotImplementedError, "definir #resolve en cada subclase"
+    end
+  end
 end
 
 # app/policies/task_policy.rb
