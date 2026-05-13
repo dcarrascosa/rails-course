@@ -149,6 +149,25 @@ Equivalente al dashboard de Hangfire en ASP.NET.
 
 ---
 
+## 6. Trampas comunes
+
+> ⚠️ **No pases objetos ActiveRecord al `perform_later`** — pasa el ID. Active Job serializa argumentos a JSON; si pasas `WelcomeEmailJob.perform_later(user)` Active Job lo serializa con GlobalID, pero si el usuario se borra antes de que el job corra, lanza `ActiveJob::DeserializationError`. Patrón seguro: `perform_later(user.id)` + `User.find(user_id)` dentro del job.
+
+> ⚠️ **`deliver_now` bloquea el request** — si lo llamas en un controlador, el usuario espera. Para webhooks, formularios de contacto, etc., **siempre** `deliver_later`. `deliver_now` solo para scripts/console o cuando explícitamente quieres bloqueo.
+
+> ⚠️ **Sidekiq no reintenta indefinidamente** — por defecto reintenta 25 veces con backoff exponencial (~21 días). Si tu job no es idempotente, un reintento puede duplicar efectos (mandar dos emails, cobrar dos veces). Diseña jobs idempotentes o usa `sidekiq_options retry: false` para los que no toleran reintentos.
+
+> ⚠️ **El dashboard de Sidekiq en `/sidekiq` es PÚBLICO si no lo proteges** — en producción cualquiera ve y manipula tu cola. Protégelo:
+> ```ruby
+> authenticate :user, ->(u) { u.admin? } do
+>   mount Sidekiq::Web => "/sidekiq"
+> end
+> ```
+
+> ⚠️ **Sidekiq Cron no es Sidekiq Pro** — `sidekiq-cron` es gratis; los recurring jobs nativos de Sidekiq son de pago. No mezcles documentación. Alternativa OSS popular: `gem "whenever"` (genera crontab del sistema).
+
+---
+
 ## Ejercicios
 
 ### Ejercicio 1 — Email de bienvenida

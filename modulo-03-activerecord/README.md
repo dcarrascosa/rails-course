@@ -169,7 +169,30 @@ user.tasks.create(title: "Nueva tarea")  # INSERT automático con user_id
 
 ---
 
-## 5. Callbacks
+## 5. Trampas comunes
+
+> ⚠️ **`find` vs `find_by` vs `where(...).first`** — son tres cosas distintas:
+> - `Task.find(id)` → lanza `ActiveRecord::RecordNotFound` (404 automático en controladores). Equivale a `FindOrFail`.
+> - `Task.find_by(id: id)` → devuelve `nil` si no existe. Equivale a `FirstOrDefault`.
+> - `Task.where(id: id).first` → igual que `find_by`, pero genera otra query.
+>
+> Usa `find` cuando la ausencia es un error; `find_by` cuando es una posibilidad esperada.
+
+> ⚠️ **Las asociaciones no son lazy "a lo EF"** — `user.tasks` ejecuta la query inmediatamente al iterar. Si solo necesitas comprobar existencia, `user.tasks.exists?` es 1000x más barato que `user.tasks.any?` sobre un array cargado.
+
+> ⚠️ **`pluck` vs `select` no es lo mismo que LINQ** — en Rails:
+> - `Task.pluck(:title)` → array de strings, **una sola columna en SQL**. Equivale a un `Select(t => t.Title).ToList()` optimizado.
+> - `Task.select(:title)` → array de objetos `Task` parcialmente cargados. Llamar a otra columna lanza `MissingAttributeError`.
+
+> ⚠️ **Las validaciones de modelo NO son constraints de base de datos** — `validates :email, uniqueness: true` no crea un índice único. Bajo concurrencia, dos requests pasarán la validación a la vez y meterán dos filas. Añade SIEMPRE `add_index :users, :email, unique: true` en la migración.
+
+> ⚠️ **`update_columns` y `update_column` saltan validaciones, callbacks y `updated_at`** — útiles para scripts de migración de datos, peligrosos en lógica de negocio. Si te encuentras usándolos en un controlador, replantéatelo.
+
+> ⚠️ **Strings en `where` son inyectables si interpolas** — `where("name = '#{params[:name]}'")` es vulnerable. Siempre `where("name = ?", params[:name])` o `where(name: params[:name])`.
+
+---
+
+## 6. Callbacks
 
 Equivalente a los eventos de EF Core (`SavingChanges`, etc.):
 

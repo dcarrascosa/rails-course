@@ -186,6 +186,27 @@ end
 
 ---
 
+## 6. Trampas comunes
+
+> ⚠️ **`build` no toca la DB, `create` sí** — usa `build` para tests de validación (más rápido, no ensucia transacción). Usa `create` cuando el test depende del registro estando persistido (`belongs_to`, scopes con SQL).
+
+> ⚠️ **`let` es lazy, `let!` es eager** — `let(:user) { create(:user) }` solo crea el user si lo invocas. Si el test setup depende de que exista sin referenciarlo, necesitas `let!` o el test pasa por error.
+
+> ⚠️ **`expect { ... }.to change { ... }` evalúa el bloque antes y después** — el bloque de `change` se ejecuta dos veces. Si tiene efectos colaterales (no debería, pero pasa), debuggearlo es un infierno.
+
+> ⚠️ **System specs son lentos y flakeados** — usan navegador real (headless Chrome). Cada test arranca y para uno. Limita system specs al "happy path crítico" del usuario; lo demás cúbrelo con request specs (mucho más rápidos, sin navegador).
+
+> ⚠️ **`sign_in` de Devise solo funciona en request/controller specs si incluyes los helpers** — en `spec/rails_helper.rb`:
+> ```ruby
+> config.include Devise::Test::IntegrationHelpers, type: :request
+> config.include Devise::Test::IntegrationHelpers, type: :system
+> ```
+> En model specs no aplica — no hay sesión HTTP.
+
+> ⚠️ **FactoryBot llama al callback de creación de ActiveRecord** — si tu modelo tiene `after_create :send_email`, el factory lo dispara. En tests, suele querer mockearse para no enviar emails reales. Patrón: `skip_callback` en `rails_helper.rb` o usar `build_stubbed` cuando no necesitas persistir.
+
+---
+
 ## Ejercicios
 
 ### Ejercicio 1 — Factories y model specs

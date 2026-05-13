@@ -173,7 +173,26 @@ puts admin.greet  # => Hola, soy Admin
 
 ---
 
-## 7. Símbolos
+## 7. Trampas comunes que pillan a devs C#
+
+> ⚠️ **`nil` no es `null`** — `nil` es un objeto (instancia de `NilClass`). Puedes llamar métodos sobre él: `nil.to_s` devuelve `""`. No lanza `NullReferenceException`; lanza `NoMethodError` solo si el método no existe en `NilClass`.
+
+> ⚠️ **El operador `&.` es como `?.` de C#**, pero hay matiz: `user&.name` evita la llamada si `user` es `nil`, pero `user&.name.upcase` no protege a `upcase`. Encadena todo: `user&.name&.upcase`.
+
+> ⚠️ **Convención de naming**:
+> - `snake_case` para métodos y variables (`current_user`, no `currentUser`).
+> - `?` al final indica método predicado que devuelve booleano (`empty?`, `valid?`).
+> - `!` al final indica método "peligroso" que muta o lanza excepción (`save!`, `strip!`).
+>
+> No son sintaxis, son **caracteres válidos del nombre del método**. `def admin?` define un método llamado literalmente `admin?`.
+
+> ⚠️ **`==` siempre es valor, no referencia** — no existe el concepto de `ReferenceEquals`. Para comparar identidad de objeto usa `equal?`. Para igualdad estructural, `==`.
+
+> ⚠️ **No hay `null` vs `undefined`** — una variable no inicializada lanza `NameError`. Una variable de instancia (`@x`) no asignada devuelve `nil` silenciosamente. Este último caso es la fuente número 1 de bugs.
+
+---
+
+## 8. Símbolos
 
 No tienen equivalente directo en C#. Son como strings inmutables e internos, ideales para claves y nombres de métodos.
 

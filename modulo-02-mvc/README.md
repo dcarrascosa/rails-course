@@ -158,6 +158,26 @@ Solo los campos declarados en `permit` se asignan al modelo.
 
 ---
 
+## 6. Trampas comunes
+
+> ⚠️ **`params` no es type-safe** — todo llega como string. `params[:id]` es `"42"`, no `42`. ActiveRecord hace el cast en `find`, pero si comparas a mano (`params[:age] > 18`) explota. Convierte explícito: `params[:age].to_i`.
+
+> ⚠️ **No existe binding automático a un DTO tipado** — el equivalente es `permit`. Si olvidas un campo en `permit`, se ignora silenciosamente al guardar (no error, no warning). Test → revisa lo que se guarda.
+
+> ⚠️ **`@variable` se pasa a la vista, las locales no** — en `def index`, `tasks = Task.all` (sin `@`) no llega a la vista. La instancia (`@tasks`) sí. Es la fuente número 1 de "por qué la vista ve nil".
+
+> ⚠️ **`render` vs `redirect_to`** — `render` renderiza la vista en la misma request (no cambia URL). `redirect_to` devuelve 302 al navegador para que haga una nueva request. Usar `render` en `create` cuando hay error es lo correcto; usar `redirect_to` perdería los errores de validación.
+
+> ⚠️ **`resources :tasks` genera 7 rutas, no 8** — no hay ruta para "destroy_all" ni similares. Si necesitas acciones custom, añádelas con `member` / `collection`:
+> ```ruby
+> resources :tasks do
+>   member { patch :complete }     # /tasks/:id/complete
+>   collection { delete :purge }   # /tasks/purge
+> end
+> ```
+
+---
+
 ## Ejercicios
 
 ### Ejercicio 1 — CRUD completo con scaffold
