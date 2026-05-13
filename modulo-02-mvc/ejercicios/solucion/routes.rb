@@ -15,7 +15,13 @@ Rails.application.routes.draw do
   resources :tasks
 
   # Ejercicio 2 — Controlador sin scaffold
-  resources :projects, only: %i[index show]
+  # Versión "mínima" del recurso projects: solo index y show.
+  # Está comentada porque más abajo (Ejercicio 3) declaramos projects con
+  # rutas anidadas. Mantener las dos declaraciones activas no falla — Rails
+  # suma rutas — pero queda confuso al leer el routes.rb. Descomenta esta
+  # línea y comenta el bloque del Ejercicio 3 si quieres probar la variante
+  # mínima por separado.
+  # resources :projects, only: %i[index show]
 
   # Ejercicio 3 — Rutas anidadas
   # Genera helpers como project_tasks_path(@project), project_task_path(@project, @task)
