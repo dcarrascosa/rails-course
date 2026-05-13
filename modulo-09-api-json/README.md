@@ -49,10 +49,22 @@ Rails.application.routes.draw do
   end
 end
 
+# app/controllers/api/v1/base_controller.rb
+# Si la app es full-stack (HTML + JSON), conviene NO heredar de
+# ApplicationController para mantener middleware, CSRF y cookies fuera de
+# la API. En una app generada con `rails new --api`, ApplicationController
+# ya hereda de ActionController::API, así que puedes heredar directamente.
+module Api
+  module V1
+    class BaseController < ActionController::API
+    end
+  end
+end
+
 # app/controllers/api/v1/tasks_controller.rb
 module Api
   module V1
-    class TasksController < ApplicationController
+    class TasksController < BaseController
       before_action :set_task, only: %i[show update destroy]
 
       def index
@@ -214,7 +226,11 @@ end
 # gem "jwt"
 
 class JwtService
-  SECRET = Rails.application.credentials.secret_key_base
+  # Clave dedicada para JWT, separada de SECRET_KEY_BASE.
+  # Razón: poder rotar el secreto de tokens sin invalidar cookies firmadas
+  # ni romper la encriptación de credentials. Configúrala en el entorno y
+  # rótala en cuanto un token se comprometa.
+  SECRET = ENV.fetch("JWT_SECRET")
 
   def self.encode(payload, exp: 24.hours.from_now)
     JWT.encode(payload.merge(exp: exp.to_i), SECRET, "HS256")
