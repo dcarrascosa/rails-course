@@ -1,0 +1,28 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.history/
+
+# Borradores locales
+notes.local.md
+TODO.local.md
+
+# Si en algún momento se añade la app TaskFlow al repo,
+# descomenta lo siguiente (defaults de Rails 8):
+# /.bundle
+# /log/*
+# /tmp/*
+# /storage/*
+# /node_modules
+# /public/assets
+# .env*
+# !.env.example
+# coverage/
