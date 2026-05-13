@@ -124,9 +124,11 @@ var tasks = db.Tasks
 # ActiveRecord
 tasks = Task
   .joins(:user)
-  .where(users: { email: /empresa.com/ })
-  .includes(:user)  # eager loading — evita N+1
+  .where("users.email LIKE ?", "%@empresa.com")  # parametrizado: nada de interpolación de strings
+  .includes(:user)                               # eager loading — evita N+1
 ```
+
+> ⚠️ **Trampa común:** `where(users: { email: /regex/ })` **no funciona** — ActiveRecord no traduce expresiones regulares de Ruby a SQL en el `where` hash. Usa `LIKE ?` con `?` (placeholder seguro contra inyección) o la API `Arel`.
 
 ---
 

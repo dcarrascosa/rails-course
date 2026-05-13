@@ -95,6 +95,8 @@ databases:
 
 ## 4. Docker — equivalente al Dockerfile de .NET
 
+> Rails 8 genera un `Dockerfile` listo para producción al crear la app (`rails new`). Lo de abajo es la versión simplificada para entender qué hace.
+
 ```dockerfile
 # Dockerfile
 FROM ruby:3.3-slim
@@ -112,6 +114,34 @@ RUN rails assets:precompile RAILS_ENV=production
 EXPOSE 3000
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
 ```
+
+### Kamal — el deploy "oficial" de Rails 8
+
+Rails 8 incluye **Kamal 2** como herramienta de deploy. Despliega un contenedor Docker en cualquier VPS (Hetzner, DigitalOcean, tu propio servidor) sin depender de un PaaS:
+
+```bash
+bin/kamal setup    # primera vez
+bin/kamal deploy   # despliegues posteriores
+```
+
+```yaml
+# config/deploy.yml
+service: taskflow
+image: tu-usuario/taskflow
+servers:
+  web:
+    - 203.0.113.10
+registry:
+  username: tu-usuario
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+env:
+  secret:
+    - RAILS_MASTER_KEY
+    - DATABASE_URL
+```
+
+Equivale a tener tu propio Azure App Service en una VM por una fracción del precio, a cambio de gestionar el servidor tú.
 
 ---
 

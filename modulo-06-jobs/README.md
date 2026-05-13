@@ -24,9 +24,17 @@ RecurringJob.AddOrUpdate<ReportService>(
 );
 ```
 
-En Rails, **Active Job** es la abstracción y **Sidekiq** el backend (con Redis):
+En Rails, **Active Job** es la abstracción de jobs (igual que `IHostedService` + cola en .NET). Para el backend tienes dos opciones modernas:
+
+- **Solid Queue** — backend por defecto en Rails 8, sin Redis (usa la propia base de datos como cola). Recomendado si arrancas en Rails 8 y quieres infra mínima.
+- **Sidekiq** — el clásico, requiere Redis. Más maduro, dashboard mejor, ecosistema de gemas enorme. Lo usamos en este curso para mantener paridad con Hangfire (que también persiste estado).
 
 ```bash
+# Opción A — Solid Queue (default Rails 8)
+# Ya viene generado en config/queue.yml si creaste la app con `rails new --solid`
+config.active_job.queue_adapter = :solid_queue
+
+# Opción B — Sidekiq (la que usaremos)
 gem "sidekiq"
 ```
 

@@ -58,7 +58,7 @@
 ```erb
 <%# Links %>
 <%= link_to "Ver tarea", task_path(@task) %>
-<%= link_to "Eliminar", task_path(@task), method: :delete, data: { turbo_method: :delete } %>
+<%= link_to "Eliminar", task_path(@task), data: { turbo_method: :delete, turbo_confirm: "¿Seguro?" } %>
 
 <%# Formularios %>
 <%= form_with model: @task do |f| %>
